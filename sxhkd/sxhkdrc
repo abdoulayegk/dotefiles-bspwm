@@ -133,6 +133,16 @@ super + Print
 ctrl + shift + Print
      gnome-screenshot -i
 
+# Fullscreen or Monocle
+super + f
+#	bspc desktop -l next
+    bspc node -t "~"fullscreen
+
+# Toggle beetwen floating & tiled
+super + space
+    bspc node -t "~"{floating,tiled}
+
+
 #Reload bspwm
 super + shift + r
 	~/.config/bspwm/bspwmrc
@@ -141,9 +151,6 @@ super + shift + r
 super + d
 	discord
 
-# Web browser
-super + b
-    brave
 
 # File explorer
 super + n
@@ -164,6 +171,9 @@ XF86AudioMute
 
 
 # Lunch Kitty
-super + k
-    Kitty
+super + shift + b
+    brave
 
+# Split horizontal, vertical or cancel
+super + {h,v,q}
+	bspc node -p {east,south,cancel}
