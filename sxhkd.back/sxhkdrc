@@ -125,15 +125,9 @@ super + r
 super + o
     firefox
 
-Print
-	flameshot full --clipboard --path $HOME/Pictures
-
-ctrl + Print
-	flameshot gui --clipboard --path $HOME/Pictures
-
 #screeenshooter
 super + Print
-     flameshot gui -d ~/Pictures
+     flameshot gui -p ~/Pictures
 
 #Gnome-Screenshot
 ctrl + shift + Print
@@ -165,21 +159,15 @@ super + n
 
 # Display brightnes control
 XF86MonBrightness{Up,Down}
-	brightnessctl -d intel_backlight s 5%{+,-}
+	brightnessctl -d intel_backlight s 10%{+,-}
 
-# # Changing the Volume
-# XF86Audio{Raise,Lower}Volume
-# 	pulsemixer --change-volume {+,-}5
+# Changing the Volume
+XF86Audio{Raise,Lower}Volume
+	pulsemixer --change-volume {+,-}5
 
-# # Mute volume
-# XF86AudioMute
-# 	pulsemixer --toggle-mute
-
-
-# mute, decrease or increase volume
-# first install ponymix
-{XF86AudioMute, XF86AudioLowerVolume, XF86AudioRaiseVolume}
-	ponymix {toggle, decrease 5, increase 5}
+# Mute volume
+XF86AudioMute
+	pulsemixer --toggle-mute
 
 
 # Lunch Kitty
@@ -189,7 +177,3 @@ super + shift + b
 # Split horizontal, vertical or cancel
 super + {h,v,q}
 	bspc node -p {east,south,cancel}
-
-# to suspend and reboot the system with rofi-power-menu
-super + ctrl + s
-    rofi -show power-menu -modi power-menu:rofi-power-menu
