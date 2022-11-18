@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	alacritty
+	kitty
 
 
 # make sxhkd reload its configuration files:
@@ -125,12 +125,6 @@ super + r
 super + o
     firefox
 
-Print
-	flameshot full --clipboard --path $HOME/Pictures
-
-ctrl + Print
-	flameshot gui --clipboard --path $HOME/Pictures
-
 #screeenshooter
 super + Print
      flameshot gui -d ~/Pictures
@@ -159,7 +153,7 @@ super + d
 
 
 # File explorer
-super + n
+super + e
 	nautilus
 
 
@@ -179,10 +173,23 @@ XF86MonBrightness{Up,Down}
 # mute, decrease or increase volume
 # first install ponymix
 {XF86AudioMute, XF86AudioLowerVolume, XF86AudioRaiseVolume}
-	ponymix {toggle, decrease 5, increase 5}
+	amixer {toggle, decrease 5, increase 5}
+
+volume XF86Audio{Raise,Lower}Volume pulsemixer --change-volume {+,-}10
+
+XF86AudioMute pulsemixer --toggle-mute
 
 
-# Lunch Kitty
+# Volume
+#
+XF86AudioMute
+	amixer -D pulse sset Master toggle
+
+XF86Audio{Raise,Lower}Volume
+	amixer -D pulse sset Master 5%{+,-}
+
+
+# Lunch brave
 super + shift + b
     brave
 
@@ -193,3 +200,7 @@ super + {h,v,q}
 # to suspend and reboot the system with rofi-power-menu
 super + ctrl + s
     rofi -show power-menu -modi power-menu:rofi-power-menu
+
+# Betterlockscreen
+super + x
+    betterlockscreen -l

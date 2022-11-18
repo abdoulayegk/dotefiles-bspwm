@@ -3,7 +3,7 @@ My bspwm config files
 To use my dotefiles you have to install following packages:
 1. ```sudo pacman -S bspwm sxhkd polybar pacman-contrib ttf-font-awesome siji-git```
 2. Copy all the folder in the .config directory then you are good to to.
-![bspwm](img.png)
+![bspwm](bsp.png)
 
 # Tips:
 1. Enable touchpad Tap-to-click:
@@ -27,3 +27,8 @@ EOF
 echo export MOZ_USE_XINPUT2=1 | sudo tee /etc/profile.d/use-xinput2.sh
 ```
 
+# Fonts:
+* Iosevka
+* noto-fonts
+* ttf-font-awesome
+* icomoon-feather

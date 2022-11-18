@@ -1,27 +1,70 @@
 #! /bin/sh
+$HOME/.config/bspwm/autostart
 
-pgrep -x sxhkd > /dev/null || sxhkd &
+sxhkd &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d 1 2 3 4 5 6 7 8 9 10
+#bspc monitor DP-2 -d 1 2 3
+#bspc monitor HDMI-1 -d 4 5 6
+#bspc monitor eDP-1 -d 7 8 9 10
 
-~/.config/polybar/launch.sh
+bspc rule -a kitty:scratchy sticky=on state=floating rectangle=widthxheight+Xoffset+Yoffset
 
-bspc config border_width         2
-bspc config window_gap          12
+bspc config border_width         4
+bspc config border_radius         12
+bspc config window_gap           12
 
 bspc config split_ratio          0.52
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
-bspc rule -a Firefox desktop='^2'
-bspc rule -a mplayer2 state=floating
-bspc rule -a Kupfer.py focus=on
-bspc rule -a Screenkey manage=off
+# --------------------------------
+# ------- Non-BSPWM related ------
+# --------------------------------
+# Set wallpaper
+feh --bg-fill ~/Pictures/walp.jpg
+# Reload .Xresources
+xrdb -load ~/.Xresources
+# Launch polybar
+~/.config/polybar/launch.sh
+# Change from ugly 'X' cursor when hovering over background
+xsetroot -cursor_name left_ptr
+# Make betterlockscreen generate and cache a background image for locking
+betterlockscreen -u ~/Pictures/gruvbox.png
+# ------- Autostart apps ------
+# Picom
+picom --xrender-sync-fence &
+# Dunst
+dunst &
+# Dropbox
+# dropbox &
+# Cmst (connman front-end)
+# cmst &
+# network-manager-applet
+nm-applet &
+
+# ------- Mouse/Touchpad fixes ------
+# Start libinput gestures
+libinput-gestures-setup start
+# Xinput configs (touchpad)
+xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Natural Scrolling Enabled" 1
+xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Click Method Enabled" 0 1
+xinput set-prop "DLL07BE:01 06CB:7A13 Touchpad" "libinput Disable While Typing Enabled" 0
+# ------- Keyboard fixes ------
+# Remap Caps-lock key to Escape, for using VIM
+setxkbmap -option caps:escape
+# Make US and DK keyboard layout togglable with Shift+Alt
+setxkbmap -layout us,dk -option grp:alt_shift_toggle
+
+# export _JAVA_AWT_WM_NONREPARENTING=1
+
+# Rules to open application in different styles.
 
 bspc rule -a Zathura state=tiled
+bspc rule -a mpv state=tiled
 
-#Authostart
-feh --bg-fill ~/.config/bspwm/walp.jpg
 
-nm-applet &
-picom &
+# Desktop 8
+declare -a document=(Zathura calibre)
+for i in ${document[@]}; do
+	bspc rule -a $i desktop='^8' state=tiled follow=on focus=on; done
